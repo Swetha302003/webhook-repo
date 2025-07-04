@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GitHub Activity Log</title>
+</head>
+<body>
+  <h2>Recent GitHub Events</h2>
+  <ul id="activity-list"></ul>
+
+  <script>
+    async function fetchEvents() {
+      const res = await fetch('/events');
+      const data = await res.json();
+      const list = document.getElementById('activity-list');
+      list.innerHTML = '';
+      data.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item.message;
+        list.appendChild(li);
+      });
+    }
+    fetchEvents();
+    setInterval(fetchEvents, 15000); // refresh every 15 seconds
+  </script>
+</body>
+</html>
